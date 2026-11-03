@@ -932,6 +932,11 @@ dialog:not([open]){display:none}
   fitUnits();
   addEventListener('resize', fitUnits);
   if (curTab && units.scrollWidth > units.clientWidth) units.scrollLeft = curTab.offsetLeft - 8;
+  /* 웹 글꼴(Pretendard)이 늦게 오면 탭 너비가 줄어 넘침이 사라지므로, 글꼴을 받은 뒤 한 번 더 잰다 */
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){
+    fitUnits();
+    if (curTab && units.scrollWidth > units.clientWidth) units.scrollLeft = curTab.offsetLeft - 8;
+  });
 
   /* 지금 보고 있는 단계 표시 */
   var steps = {};
